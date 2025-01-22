@@ -19,7 +19,7 @@ const isDark = computed({
       @click="isDark = !isDark"
     />
     <template #fallback>
-      <UButton class="w-8 h-8" icon="" color="gray" />
+      <div class="w-8 h-8 rounded-md p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 bg-gray-50 dark:bg-gray-800" />
     </template>
   </ClientOnly>
 </template>
