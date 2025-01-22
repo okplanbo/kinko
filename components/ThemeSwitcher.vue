@@ -1,24 +1,25 @@
-<!-- components/ThemeSwitcher.vue -->
-<template>
-  <UButton
-    :icon="colorMode.value === 'dark' ? 'i-heroicons-sun' : 'i-heroicons-moon'"
-    color="gray"
-    @click="toggleTheme"
-  />
-</template>
-
 <script setup>
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 
-const toggleTheme = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  localStorage.setItem('theme', colorMode.preference)
-}
-
-onMounted(() => {
-  const savedTheme = localStorage.getItem('theme')
-  if (savedTheme) {
-    colorMode.preference = savedTheme
-  }
-})
+const isDark = computed({
+  get() {
+    return colorMode.value === "dark";
+  },
+  set() {
+    colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+  },
+});
 </script>
+
+<template>
+  <ClientOnly>
+    <UButton
+      :icon="isDark ? 'i-heroicons-sun' : 'i-heroicons-moon'"
+      color="gray"
+      @click="isDark = !isDark"
+    />
+    <template #fallback>
+      <UButton class="w-8 h-8" icon="" color="gray" />
+    </template>
+  </ClientOnly>
+</template>
