@@ -10,8 +10,7 @@ export default defineNuxtConfig({
   },
   vuefire: {
     auth: {
-      enabled: true,
-      sessionCookie: true // needs to be enabled due to SSR
+      enabled: true
     },
     config: {
       apiKey: process.env.FIRE_API_KEY,

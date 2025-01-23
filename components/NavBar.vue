@@ -1,6 +1,7 @@
 <script setup>
 import { protectedItems, navItems } from "@/constants";
 const isMenuOpen = ref(false);
+const route = useRoute();
 </script>
 
 <template>
@@ -9,12 +10,18 @@ const isMenuOpen = ref(false);
       <span class="font-bold self-start text-xl">Kinko</span>
 
       <div class="flex items-center">
+        <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-4">
           <NuxtLink
             v-for="item in navItems"
             :key="item.path"
             :to="item.path"
-            class="hover:text-gray-500 transition-colors"
+            :class="[
+              'transition-colors',
+              route.path === item.path
+                ? 'text-gray-400 pointer-events-none'
+                : 'hover:text-gray-500',
+            ]"
           >
             {{ item.label }}
           </NuxtLink>
@@ -42,10 +49,20 @@ const isMenuOpen = ref(false);
             v-for="item in navItems"
             :key="item.path"
             :to="item.path"
-            class="block py-2 hover:text-gray-500"
+            :class="[
+              'flex py-2 items-center flex-grow',
+              route.path === item.path
+                ? 'text-primary-600'
+                : 'hover:text-gray-500',
+            ]"
             @click="isMenuOpen = false"
           >
             {{ item.label }}
+            <UIcon
+              v-if="route.path === item.path"
+              name="i-heroicons-arrow-left"
+              class="text-primary-600 ml-2"
+            />
           </NuxtLink>
 
           <!-- Close Menu Button -->

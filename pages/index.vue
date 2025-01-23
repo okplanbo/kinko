@@ -4,9 +4,9 @@ import { signOut } from "firebase/auth";
 const auth = useFirebaseAuth();
 const user = useCurrentUser();
 
-const isLoggedIn = ref(!!user);
+const isLoggedIn = ref(user);
 
-// client only. TBD: use store instead
+// client only
 onMounted(() => {
   watch(user, (user) => {
     isLoggedIn.value = user;
