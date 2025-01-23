@@ -1,8 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NODE_ENV !== "production" },
   modules: ["@nuxt/ui", "nuxt-vuefire"],
+  ssr: false,
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
@@ -10,7 +11,8 @@ export default defineNuxtConfig({
   },
   vuefire: {
     auth: {
-      enabled: true
+      enabled: true,
+      sessionCookie: false
     },
     config: {
       apiKey: process.env.FIRE_API_KEY,
