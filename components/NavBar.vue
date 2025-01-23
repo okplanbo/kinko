@@ -1,7 +1,27 @@
 <script setup>
 import { protectedItems, navItems } from "@/constants";
-const isMenuOpen = ref(false);
+
 const route = useRoute();
+const auth = useFirebaseAuth();
+const user = useCurrentUser();
+
+const isMenuOpen = ref(false);
+const isLoggedIn = ref(user);
+const availableNavItems = ref(navItems);
+
+// client only
+onMounted(() => {
+  watch(user, (user, prevUser) => {
+    isLoggedIn.value = user;
+
+    if (prevUser && !user) {
+      availableNavItems.value=navItems;
+    }
+    if (!prevUser && user) {
+      availableNavItems.value=[...navItems, ...protectedItems];
+    }
+  });
+});
 </script>
 
 <template>
@@ -13,7 +33,7 @@ const route = useRoute();
         <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-4">
           <NuxtLink
-            v-for="item in navItems"
+            v-for="item in availableNavItems"
             :key="item.path"
             :to="item.path"
             :class="[
@@ -46,7 +66,7 @@ const route = useRoute();
         <div class="p-4 text-lg">
           <!-- Menu items -->
           <NuxtLink
-            v-for="item in navItems"
+            v-for="item in availableNavItems"
             :key="item.path"
             :to="item.path"
             :class="[
