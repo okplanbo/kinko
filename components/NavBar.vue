@@ -37,12 +37,21 @@ onMounted(() => {
 <template>
   <nav class="border-b p-4">
     <div class="container flex max-w-full justify-between items-center">
-      <span class="font-bold self-start text-xl">Kinko</span>
+      <!-- App Name & Home Link -->
+      <NuxtLink
+        :to="'/'"
+        class="font-bold self-start text-xl">
+        Kinko
+      </NuxtLink>
+
       <div class="flex items-center">
+
         <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-4">
           <NuxtLink
-            v-for="item in availableNavItems"
+            v-for="item in availableNavItems.filter(
+              (item) => item.path !== '/'
+            )"
             :key="item.path"
             :to="item.path"
             :class="[
@@ -112,7 +121,9 @@ onMounted(() => {
           </div>
 
           <!-- Side panel in Menu -->
-          <div class="w-24 bg-gray-100 dark:bg-gray-800 p-2 border-l dark:border-gray-700 border-gray-200">
+          <div
+            class="w-24 bg-gray-100 dark:bg-gray-800 p-2 border-l dark:border-gray-700 border-gray-200"
+          >
             <div class="flex flex-col items-center space-y-2">
               <!-- Close Menu Button -->
               <UButton
@@ -124,6 +135,7 @@ onMounted(() => {
               />
               <!-- Logout Button -->
               <UButton
+                v-if="user"
                 size="md"
                 icon="i-heroicons-arrow-left-start-on-rectangle"
                 class="m-4"
