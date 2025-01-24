@@ -1,14 +1,9 @@
 <script setup>
-const { $auth } = useNuxtApp();
-
-// TBD: use when we will have more than one provider
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+const auth = useFirebaseAuth();
 
 const signInWithGoogle = async () => {
-  // try {
-  //   await $auth.loginWith("google");
-  // } catch (error) {
-  //   console.error("Login failed:", error);
-  // }
+  signInWithPopup(auth, new GoogleAuthProvider());
 };
 </script>
 

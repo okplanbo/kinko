@@ -1,24 +1,34 @@
 <script setup>
+import { signOut } from "firebase/auth";
 import { protectedItems, navItems } from "@/constants";
 
 const route = useRoute();
-const auth = useFirebaseAuth();
 const user = useCurrentUser();
+const auth = useFirebaseAuth();
 
-const isMenuOpen = ref(false);
-const isLoggedIn = ref(user);
-const availableNavItems = ref(navItems);
+const isMenuOpen = ref();
+const isLoginModalOpen = ref();
 
-// client only
+function logout() {
+  signOut(auth);
+}
+
+const availableNavItems = ref(
+  user.value ? [...navItems, ...protectedItems] : navItems
+);
+
 onMounted(() => {
   watch(user, (user, prevUser) => {
-    isLoggedIn.value = user;
-
     if (prevUser && !user) {
-      availableNavItems.value=navItems;
+      availableNavItems.value = [...navItems];
+
+      if (protectedItems.map((item) => item.path).includes(route.path)) {
+        navigateTo({ path: "/" });
+      }
     }
     if (!prevUser && user) {
-      availableNavItems.value=[...navItems, ...protectedItems];
+      isLoginModalOpen.value = false;
+      availableNavItems.value = [...navItems, ...protectedItems];
     }
   });
 });
@@ -28,7 +38,6 @@ onMounted(() => {
   <nav class="border-b p-4">
     <div class="container flex max-w-full justify-between items-center">
       <span class="font-bold self-start text-xl">Kinko</span>
-
       <div class="flex items-center">
         <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-4">
@@ -47,51 +56,82 @@ onMounted(() => {
           </NuxtLink>
         </div>
 
-        <LoginButton class="ml-4" />
-        <!-- <LoginModal v-model="isLoginModalOpen"/> -->
+        <UButton
+          v-if="!user"
+          class="mx-4"
+          icon="i-heroicons-user-circle"
+          label="Login"
+          color="gray"
+          @click="isLoginModalOpen = true"
+        />
+        <UButton
+          v-if="user"
+          class="mx-4"
+          icon="i-heroicons-arrow-left-start-on-rectangle"
+          label="Logout"
+          color="gray"
+          @click="logout"
+        />
+        <LoginModal v-model="isLoginModalOpen" />
 
-        <div class="self-start mx-4"><ThemeSwitcher /></div>
+        <ThemeSwitcher class="self-start mx-4" />
 
         <!-- Mobile Menu Button -->
         <UButton
           icon="i-heroicons-bars-3"
           color="gray"
-          class="md:hidden"
+          class="md:hidden ml-4"
           @click="isMenuOpen = !isMenuOpen"
         />
       </div>
 
       <!-- Mobile Navigation Drawer -->
       <USlideover v-model="isMenuOpen" side="right">
-        <div class="p-4 text-lg">
-          <!-- Menu items -->
-          <NuxtLink
-            v-for="item in availableNavItems"
-            :key="item.path"
-            :to="item.path"
-            :class="[
-              'flex py-2 items-center flex-grow',
-              route.path === item.path
-                ? 'text-primary-600'
-                : 'hover:text-gray-500',
-            ]"
-            @click="isMenuOpen = false"
-          >
-            {{ item.label }}
-            <UIcon
-              v-if="route.path === item.path"
-              name="i-heroicons-arrow-left"
-              class="text-primary-600 ml-2"
-            />
-          </NuxtLink>
+        <div class="flex h-full">
+          <div class="p-4 text-lg w-full">
+            <!-- Menu items -->
+            <NuxtLink
+              v-for="item in availableNavItems"
+              :key="item.path"
+              :to="item.path"
+              :class="[
+                'flex py-2 items-center flex-grow',
+                route.path === item.path
+                  ? 'text-primary-600'
+                  : 'hover:text-gray-500',
+              ]"
+              @click="isMenuOpen = false"
+            >
+              {{ item.label }}
+              <UIcon
+                v-if="route.path === item.path"
+                name="i-heroicons-arrow-left"
+                class="text-primary-600 ml-2"
+              />
+            </NuxtLink>
+          </div>
 
-          <!-- Close Menu Button -->
-          <UButton
-            icon="i-heroicons-x-mark"
-            class="absolute top-5 right-5"
-            color="gray"
-            @click="isMenuOpen = !isMenuOpen"
-          />
+          <!-- Side panel in Menu -->
+          <div class="w-24 bg-gray-100 dark:bg-gray-800 p-2 border-l dark:border-gray-700 border-gray-200">
+            <div class="flex flex-col items-center space-y-2">
+              <!-- Close Menu Button -->
+              <UButton
+                size="md"
+                icon="i-heroicons-x-mark"
+                class="m-4"
+                color="gray"
+                @click="isMenuOpen = !isMenuOpen"
+              />
+              <!-- Logout Button -->
+              <UButton
+                size="md"
+                icon="i-heroicons-arrow-left-start-on-rectangle"
+                class="m-4"
+                color="gray"
+                @click="logout"
+              />
+            </div>
+          </div>
         </div>
       </USlideover>
     </div>

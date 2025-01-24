@@ -4,6 +4,13 @@ export default defineNuxtConfig({
   devtools: { enabled: process.env.NODE_ENV !== "production" },
   modules: ["@nuxt/ui", "nuxt-vuefire"],
   ssr: false,
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
@@ -12,7 +19,7 @@ export default defineNuxtConfig({
   vuefire: {
     auth: {
       enabled: true,
-      sessionCookie: false
+      sessionCookie: false,
     },
     config: {
       apiKey: process.env.FIRE_API_KEY,
@@ -20,7 +27,7 @@ export default defineNuxtConfig({
       projectId: process.env.FIRE_PROJECT_ID,
       storageBucket: process.env.FIRE_STORAGE_BUCKET,
       messagingSenderId: process.env.FIRE_MSG_SENDER_ID,
-      appId: process.env.FIRE_APP_ID
+      appId: process.env.FIRE_APP_ID,
     },
   },
 });

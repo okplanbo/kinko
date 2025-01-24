@@ -1,21 +1,5 @@
 <script setup>
-import { signOut } from "firebase/auth";
-
-const auth = useFirebaseAuth();
 const user = useCurrentUser();
-
-const isLoggedIn = ref(user);
-
-// client only
-onMounted(() => {
-  watch(user, (user) => {
-    isLoggedIn.value = user;
-  });
-});
-
-function logout() {
-  signOut(auth);
-}
 </script>
 
 <template>
@@ -26,12 +10,6 @@ function logout() {
 
     <section class="mt-4" v-if="user">
       <h2 class="mb-4">Dashboard</h2>
-      <UButton
-        icon="i-heroicons-arrow-left-start-on-rectangle"
-        label="Logout"
-        color="gray"
-        @click="logout"
-      />
     </section>
   </main>
 </template>
