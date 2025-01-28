@@ -35,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="border-b p-4">
+  <nav class="top-0 w-full max-w-4xl my-0 mx-auto border-b p-4">
     <div class="container flex max-w-full justify-between items-center">
       <!-- App Name & Home Link -->
       <NuxtLink

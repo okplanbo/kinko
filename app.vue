@@ -21,8 +21,47 @@ useSeoMeta({
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    @apply h-full;
+  }
+  body {
+    @apply max-w-4xl mx-auto bg-white dark:bg-gray-900;
+  }
   h1 {
-    @apply mb-4 mt-2;
+    @apply mb-4 mt-2 text-xl;
+  }
+  h2 {
+    @apply mb-4 mt-2 text-lg text-gray-900 dark:text-gray-100;
+  }
+  main {
+    @apply flex-1;
+  }
+  section {
+    @apply py-4 px-4 w-full m-0 border-t border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800;
+    max-width: min(100%, 70ch);
+
+    a {
+      @apply text-primary-600 dark:text-primary-400 
+          hover:text-primary-800 dark:hover:text-primary-300 
+          transition-colors;
+    }
+  }
+  p {
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed mb-4;
+  }
+
+  ul {
+    @apply space-y-1.5 mb-6 ml-4;
+  }
+
+  li {
+    @apply text-gray-700 dark:text-gray-300 list-disc ml-4;
+  }
+
+  pre {
+    @apply p-4 mb-4 border-l-4 border-gray-200 dark:border-gray-700 
+          bg-gray-100 dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-200 
+          overflow-x-auto;
   }
 }
 </style>

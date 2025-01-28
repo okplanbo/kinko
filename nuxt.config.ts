@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "nuxt-vuefire"],
   ssr: false,
   app: {
+    rootAttrs: {
+      class: "h-full",
+    },
     head: {
       htmlAttrs: {
         lang: "en",
