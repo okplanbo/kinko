@@ -21,7 +21,8 @@ useSeoMeta({
 @tailwind utilities;
 
 @layer base {
-  html, body {
+  html,
+  body {
     @apply h-full;
   }
   body {
@@ -37,11 +38,11 @@ useSeoMeta({
     @apply flex-1;
   }
   section {
-    @apply py-4 px-4 w-full m-0 border-t border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800;
+    @apply py-4 px-4 w-full mx-0 mt-0 mb-6 border-t border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800;
     max-width: min(100%, 70ch);
 
     a {
-      @apply text-primary-600 dark:text-primary-400 
+      @apply text-primary-800 dark:text-primary-400 
           hover:text-primary-800 dark:hover:text-primary-300 
           transition-colors;
     }

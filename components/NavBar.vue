@@ -106,8 +106,8 @@ onMounted(() => {
               :class="[
                 'flex py-2 items-center flex-grow',
                 route.path === item.path
-                  ? 'text-primary-600'
-                  : 'hover:text-gray-500',
+                  ? 'text-primary-800'
+                  : 'hover:text-primary-600',
               ]"
               @click="isMenuOpen = false"
             >
@@ -115,7 +115,7 @@ onMounted(() => {
               <UIcon
                 v-if="route.path === item.path"
                 name="i-heroicons-arrow-left"
-                class="text-primary-600 ml-2"
+                class="text-primary-800 ml-2"
               />
             </NuxtLink>
           </div>
