@@ -7,15 +7,13 @@ This demo app was created as a boilerplate to explore and test the following sta
 *   Nuxt UI
 *   Firebase + Google Auth
 *   Bun
-*   Tailwind CSS
-*   Heroicons
+*   Tailwind CSS, Heroicons
 *   Cloudflare Pages
 
 Initially, ESR (Edge-Side Rendering) was enabled, but unfortunately, Nitro does not work correctly with Vuefire out of the box when deploying to Cloudflare Edge.
 
-It throws the following error:
-
-```Error: Failed to publish your Function. Got error: Uncaught TypeError: 
+```
+Error: Failed to publish your Function. Got error: Uncaught TypeError: 
 Object prototype may only be an Object or null: undefined
   at chunks/nitro/nitro.mjs:1:334924 in Go.exports
   at chunks/nitro/nitro.mjs:1:346753 in Go.exports
