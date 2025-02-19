@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: process.env.NODE_ENV !== "production" },
-  modules: ["@nuxt/ui", "nuxt-vuefire", "@nuxt/content"],
+  modules: ["@nuxt/ui", "nuxt-vuefire", "@nuxt/content", "@nuxt/eslint"],
   ssr: false,
   app: {
     rootAttrs: {

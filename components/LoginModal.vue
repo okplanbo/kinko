@@ -22,8 +22,8 @@ const signInWithGoogle = async () => {
         <UButton
           block
           color="gray"
-          @click="signInWithGoogle"
           :loading="loading"
+          @click="signInWithGoogle"
         >
           <template #leading>
             <UIcon name="i-logos-google-icon" />

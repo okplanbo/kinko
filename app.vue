@@ -15,6 +15,12 @@ useSeoMeta({
 });
 </script>
 
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
 <style>
 @tailwind base;
 @tailwind components;
@@ -66,9 +72,3 @@ useSeoMeta({
   }
 }
 </style>
-
-<template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-</template>
